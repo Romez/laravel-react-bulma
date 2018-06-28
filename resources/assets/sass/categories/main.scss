@@ -1,0 +1,17 @@
+.menu-list__item {
+  $this: &;
+
+  &--sub {
+    display: none;
+    height: 0;
+    transition: height .5s;
+  }
+
+  &:hover .menu-list__item--sub {
+    display: block;
+  }
+
+  &--show .menu-list__item--sub {
+    display: block;
+  }
+}

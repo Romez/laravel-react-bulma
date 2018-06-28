@@ -6,7 +6,10 @@ import cn from 'classnames'
 class Categories extends React.Component {
   render () {
     return (
-      <ul className={cn({'menu-list': !this.props.sub})}>
+      <ul className={cn({
+        'menu-list': !this.props.sub,
+        'menu-list__item--sub': this.props.sub
+      })}>
         {this.props.categories.map((category) => (<Category key={category.id} category={category} />))}
       </ul>
     )

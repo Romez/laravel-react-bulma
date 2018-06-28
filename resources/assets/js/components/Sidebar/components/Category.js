@@ -4,10 +4,13 @@ import Categories from './Categories'
 
 class Category extends React.Component {
   render () {
-    const {name, children} = this.props.category
+    const {name, children, id, parent_id} = this.props.category
     return (
-      <li>
-        <a>{name}</a>
+      <li className={'menu-list__item'}>
+        <a>
+          {name}
+          {children && <span className="icon"><i className={'fa fa-angle-down'}/></span>}
+        </a>
         {children && <Categories categories={children} sub={true}/>}
       </li>
     )
