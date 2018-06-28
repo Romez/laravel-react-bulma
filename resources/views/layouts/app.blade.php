@@ -12,6 +12,7 @@
 <body>
     @yield('content')
 
+    <script src="{{asset('js/laroute.js')}}"></script>
     @yield('scripts')
 </body>
 </html>

@@ -12,7 +12,8 @@
     "devDependencies": {
         "axios": "^0.18",
         "babel-preset-react": "^6.24.1",
-        "bootstrap": "^4.0.0",
+        "bulma": "^0.7.1",
+        "classnames": "^2.2.6",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
@@ -20,8 +21,10 @@
         "popper.js": "^1.12",
         "react": "^16.4.1",
         "react-dom": "^16.4.1",
+        "react-redux": "^5.0.7",
         "react-router-dom": "^4.3.1",
         "redux": "^4.0.0",
+        "redux-devtools-extension": "^2.13.5",
         "redux-thunk": "^2.3.0"
     }
 }
