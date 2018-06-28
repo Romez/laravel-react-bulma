@@ -11,4 +11,15 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.js('resources/assets/js/bootstrap.js', 'public/js/bootstrap.js');
+
 mix.react('resources/assets/js/app.js', 'public/js/app.js')
+
+mix.webpackConfig({
+  resolve: {
+    alias: {
+      'utils': path.resolve(__dirname, './resources/assets/js/utils'),
+      'components': path.resolve(__dirname, './resources/assets/js/components')
+    }
+  }
+});
