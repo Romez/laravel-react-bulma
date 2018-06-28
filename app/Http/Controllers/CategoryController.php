@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
+        $categories = Category::defaultOrder()->get();
+        return response()->json(compact('categories'));
     }
 
     /**
