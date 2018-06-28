@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import {sideBarReducer} from '../components/Sidebar'
+import {categoriesReducer} from '../components/Sidebar'
 
 export default  combineReducers({
-  sideBarReducer
+  categoriesReducer
 })

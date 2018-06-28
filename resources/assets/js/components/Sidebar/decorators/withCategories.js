@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Loader } from 'components/Loader'
 import { loadAll } from '../actions/categoryActions'
 
@@ -24,12 +23,12 @@ export default WrappedComponent => {
   }
 
   const mapStateToProps = state => ({
-    categories: state.sideBarReducer.categories
+    categories: state.categoriesReducer.categories
   })
 
-  const mapDispatchToProps = dispatch => ({
-    loadAll: bindActionCreators(loadAll, dispatch)
-  })
+  const mapDispatchToProps = {
+    loadAll
+  }
 
   return connect(mapStateToProps, mapDispatchToProps)(AsyncComponent)
 }

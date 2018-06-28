@@ -1,10 +1,6 @@
 import { http } from 'utils'
-
-const CATEGORY_TYPES = {
-  GET_ALL: 'CATEGORY--GET_ALL'
-}
-
-export default CATEGORY_TYPES
+import arrToTree from 'array-to-tree'
+import CATEGORY_TYPES from './categoryActionTypes'
 
 /**
  * Задать категории
@@ -16,7 +12,7 @@ const setCategories = (categories) => ({
 })
 
 /**
- * Загрузить категории
+ * Загрузить все категории
  * @return {function(*)}
  */
 export const loadAll = () => {
@@ -25,7 +21,9 @@ export const loadAll = () => {
       const url = window.laroute.route('category.index')
       const {data} = await http('get', url)
 
-      dispatch(setCategories(data.categories))
+      const categories = arrToTree(data.categories)
+
+      dispatch(setCategories(categories))
     } catch (err) {
       console.error(err)
     }

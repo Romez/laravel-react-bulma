@@ -12,7 +12,7 @@ export const http = (method = 'get', query, data = false, isReject = false) => {
       const message = (response.data) ? response.data.message : ''
       switch (response.status) {
         case 422:
-          alert('Ошибка валидации! \n' + message, 'error')
+          alert('Ошибка валидации! \n' + message)
           break
         case 419:
           alert('Ваша сессия устарела, пожалуйста перезагрузите страницу.')

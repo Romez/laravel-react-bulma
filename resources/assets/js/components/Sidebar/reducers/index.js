@@ -1,4 +1,4 @@
-import CATEGORY_TYPES from '../actions/categoryActions'
+import CATEGORY_TYPES from '../actions/categoryActionTypes'
 
 export const initialState = {
   categories: null
