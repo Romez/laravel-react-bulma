@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 
-interface InterfaceRepository
+interface IRepository
 {
     /**
      * @param string $select
