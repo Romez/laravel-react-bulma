@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Category from './Category'
-import arrayToTree from 'array-to-tree'
+import cn from 'classnames'
 
 class Categories extends React.Component {
   render () {
     return (
-      <ul className="menu-list">
-        {this.props.sub && (<li><a>{'TEST'}</a></li>)}
-
+      <ul className={cn({'menu-list': !this.props.sub})}>
         {this.props.categories.map((category) => (<Category key={category.id} category={category} />))}
       </ul>
     )
