@@ -4,17 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-use App\Repositories\Category\ICategoryRepository;
-use App\Repositories\Category\CategoryRepository;
+use App\Repositories\Good\IGoodRepository;
+use App\Repositories\Good\GoodRepository;
 
-class CategoryServiceProvider extends ServiceProvider
+class GoodServiceProvider extends ServiceProvider
 {
-    /**
-     * Отложенная подгрузка
-     * @var bool
-     */
-    protected $defer = true;
-
     /**
      * Bootstrap services.
      *
@@ -22,7 +16,7 @@ class CategoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 
     /**
@@ -32,7 +26,7 @@ class CategoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(ICategoryRepository::class, CategoryRepository::class);
+        $this->app->bind(IGoodRepository::class, GoodRepository::class);
     }
 
     /**
@@ -41,7 +35,7 @@ class CategoryServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            ICategoryRepository::class
+            IGoodRepository::class
         ];
     }
 }

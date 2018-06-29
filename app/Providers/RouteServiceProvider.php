@@ -41,6 +41,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapCategory();
 
+        $this->mapGood();
+
         $this->mapAdmin();
     }
 
@@ -77,6 +79,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::namespace($this->namespace)
             ->group(base_path('routes/category.php'));
+    }
+
+    protected function mapGood()
+    {
+        Route::namespace($this->namespace)
+            ->group(base_path('routes/good.php'));
     }
 
     protected function mapAdmin() {
