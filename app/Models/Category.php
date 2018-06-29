@@ -10,4 +10,12 @@ class Category extends Model
     use NodeTrait;
 
     protected $fillable = ['name', 'slug'];
+
+    /**
+     * Товары
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function goods() {
+        return $this->hasMany(Good::class);
+    }
 }

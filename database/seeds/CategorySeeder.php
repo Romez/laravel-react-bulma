@@ -38,7 +38,9 @@ class CategorySeeder extends Seeder
     {
         for ($i = 0; $i <= $count; $i++) {
             /** @var Category $child */
-            factory(Category::class)->create(['parent_id' => array_random($parentIds)]);
+            factory(Category::class)->create([
+                'parent_id' => array_random($parentIds)
+            ]);
         }
     }
 }
