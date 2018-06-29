@@ -2,7 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Good;
-use App\Repositories\Category\ICategory;
+use App\Repositories\Category\ICategoryRepository;
 use Illuminate\Database\Seeder;
 
 class GoodSeeder extends Seeder
@@ -29,8 +29,8 @@ class GoodSeeder extends Seeder
      */
     private function getAllCategories()
     {
-        /** @var ICategory $categoryRepo */
-        $categoryRepo = resolve(ICategory::class);
+        /** @var ICategoryRepository $categoryRepo */
+        $categoryRepo = resolve(ICategoryRepository::class);
 
         return $categoryRepo->get();
     }

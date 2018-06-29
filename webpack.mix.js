@@ -18,7 +18,7 @@ mix.react('resources/assets/js/app.js', 'public/js/app.js')
 mix.webpackConfig({
   resolve: {
     alias: {
-      'utils': path.resolve(__dirname, './resources/assets/js/utils')
+      '@utils': path.resolve(__dirname, './resources/assets/js/utils')
     }
   }
 });

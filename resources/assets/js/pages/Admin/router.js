@@ -1,7 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
-import { Page, Category, Goods } from './components'
+import { Page, Category } from './components'
+import { Goods } from './containers'
 
 export default (
   <Switch>
