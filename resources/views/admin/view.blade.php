@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    {{'Тестовое задание|Главная'}}
+    {{'Тестовое задание|Админка'}}
 @endsection
 
 @section('content')

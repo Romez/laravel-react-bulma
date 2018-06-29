@@ -4,5 +4,5 @@ import { Route } from 'react-router-dom'
 import Page from './components/Page'
 
 export default (
-  <Route path={window.laroute.route('home')} component={Page} exact/>
+  <Route path={window.laroute.route('admin')} component={Page}/>
 )
