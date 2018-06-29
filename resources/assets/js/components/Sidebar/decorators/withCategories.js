@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Loader } from 'components/Loader'
+import { Loader } from '../../'
 import { loadAll } from '../actions/categoryActions'
 
 export default WrappedComponent => {

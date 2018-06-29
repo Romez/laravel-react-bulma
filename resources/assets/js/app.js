@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDom from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import {Sidebar} from './components/Sidebar'
+import {Sidebar, Header} from './components'
 import cn from 'classnames'
 
 import store from './store'
@@ -15,13 +15,20 @@ class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <main className={cn('section', 'columns')}>
-            <div className={cn('column', 'is-one-fifth')}>
-              <Sidebar/>
+          <main className={'container'}>
+
+            <div className="section">
+              <Header/>
             </div>
 
-            <div className="column">
-              {routes}
+            <div className={cn('section', 'columns')}>
+              <div className={cn('column', 'is-one-fifth')}>
+                <Sidebar/>
+              </div>
+
+              <div className="column">
+                {routes}
+              </div>
             </div>
           </main>
         </BrowserRouter>
