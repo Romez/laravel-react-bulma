@@ -1,8 +1,12 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
-import Page from './components/Page'
+import { Page, Category, Goods } from './components'
 
 export default (
-  <Route path={window.laroute.route('admin')} component={Page}/>
+  <Switch>
+    <Route path={window.laroute.route('admin')} component={Page} exact/>
+    <Route path={window.laroute.route('admin.category')} component={Category}/>
+    <Route path={window.laroute.route('admin.goods')} component={Goods}/>
+  </Switch>
 )

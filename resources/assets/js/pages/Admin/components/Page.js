@@ -8,7 +8,7 @@ class Page extends React.Component {
 
         <div className="column is-half">
           <div className="box">
-            <Link to={'#'}>
+            <Link to={window.laroute.route('admin.category')}>
               <div className="title">Категории</div>
             </Link>
           </div>
@@ -16,8 +16,7 @@ class Page extends React.Component {
 
         <div className="column is-half">
           <div className="box">
-
-            <Link to={'#'}>
+            <Link to={window.laroute.route('admin.goods')}>
               <div className="title">Товары</div>
             </Link>
           </div>

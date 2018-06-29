@@ -32,12 +32,8 @@ class Header extends React.PureComponent {
               <Link className="navbar-item" to={window.laroute.route('admin')}>Админка</Link>
 
               <div className="navbar-dropdown is-boxed">
-                <a className="navbar-item" href="#">
-                  Категории
-                </a>
-                <a className="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
-                  Товары
-                </a>
+                <Link className="navbar-item" to={window.laroute.route('admin.category')}>Категории</Link>
+                <Link className="navbar-item" to={window.laroute.route('admin.goods')}>Товары</Link>
               </div>
             </div>
           </div>
