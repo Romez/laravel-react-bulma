@@ -1,16 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Categories from './Categories'
+import { Link } from 'react-router-dom'
 
 class Category extends React.Component {
   render () {
-    const {name, children, id, parent_id} = this.props.category
+    const {name, children, id, parent_id, slug} = this.props.category
     return (
       <li className={'menu-list__item'}>
-        <a>
+        <Link
+          to={window.laroute.route('category.slug', {slug})}
+        >
           {name}
           {children && <span className="icon"><i className={'fa fa-angle-down'}/></span>}
-        </a>
+        </Link>
         {children && <Categories categories={children} sub={true}/>}
       </li>
     )

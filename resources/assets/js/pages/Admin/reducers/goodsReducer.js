@@ -30,6 +30,10 @@ export default (state = initialState, action) => {
       }
     }
 
+    case GOODS_TYPES.REVERT_STATE: {
+      return initialState
+    }
+
     default:
       return state
   }

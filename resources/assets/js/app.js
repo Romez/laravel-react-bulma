@@ -16,10 +16,7 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <main className={'container'}>
-
-            <div className="section">
-              <Header/>
-            </div>
+            <Header/>
 
             <div className={cn('section', 'columns')}>
               <div className={cn('column', 'is-one-fifth')}>

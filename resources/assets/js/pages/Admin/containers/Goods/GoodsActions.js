@@ -14,7 +14,6 @@ class GoodsActions extends React.Component {
   render () {
     return (
       <div className={'goods-actions'}>
-
         <span className="icon">
           <i className="fa fa-eye"/>
         </span>

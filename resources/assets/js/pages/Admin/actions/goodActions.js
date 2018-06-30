@@ -69,3 +69,10 @@ export const removeGoodRequest = (id) => {
   }
 }
 
+/**
+ * Вернуть к default state
+ */
+export const revertState = () => ({
+  type: GOODS_TYPES.REVERT_STATE
+})
+

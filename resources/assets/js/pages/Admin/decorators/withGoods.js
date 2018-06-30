@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Loader } from '../../../components'
-import { uploadGoodsRequest } from '../actions/goodActions'
+import { uploadGoodsRequest, revertState } from '../actions/goodActions'
 import qs from 'query-string'
 
 export default WrappedComponent => {
@@ -11,6 +11,10 @@ export default WrappedComponent => {
       const params = qs.parse(this.props.location.search)
 
       this.props.uploadGoodsRequest(params.page)
+    }
+
+    componentWillUnmount() {
+      this.props.revertState()
     }
 
     /**
@@ -42,7 +46,8 @@ export default WrappedComponent => {
   })
 
   const mapDispatchToProps = {
-    uploadGoodsRequest
+    uploadGoodsRequest,
+    revertState
   }
 
   return connect(mapStateToProps, mapDispatchToProps)(AsyncComponent)
