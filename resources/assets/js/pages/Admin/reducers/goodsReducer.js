@@ -13,6 +13,15 @@ export default (state = initialState, action) => {
       }
     }
 
+    case GOODS_TYPES.REMOVE_GOOD: {
+      const id = action.id
+      const goods = state.goods.filter((good) => good.id !== id)
+      return {
+        ...state,
+        goods
+      }
+    }
+
     default:
       return state
   }

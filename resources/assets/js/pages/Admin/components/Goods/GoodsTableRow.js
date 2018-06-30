@@ -9,7 +9,11 @@ class GoodsTableRow extends React.Component {
     return (
       <tr>
         <td>{id}</td>
-        <td></td>
+        <td>
+          <figure className="image is-24x24">
+            <img src="https://bulma.io/images/placeholders/128x128.png"/>
+          </figure>
+        </td>
         <td className={'good__name'}>{name}</td>
         <td>
           <GoodsActions id={id}/>

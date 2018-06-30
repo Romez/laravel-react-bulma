@@ -95,12 +95,14 @@ class GoodController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Good $good
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Good $good)
     {
-        //
+        $success = $good->delete();
+
+        return response()->json(compact('success'));
     }
 }

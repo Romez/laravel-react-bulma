@@ -1,4 +1,12 @@
-export const http = (method = 'get', query, data = false, isReject = false) => {
+/**
+ * Axios helper wrapper
+ * @param method
+ * @param query
+ * @param data
+ * @param isReject
+ * @returns {Promise<any>}
+ */
+export default (method = 'get', query, data = false, isReject = false) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (data) {
@@ -25,9 +33,7 @@ export const http = (method = 'get', query, data = false, isReject = false) => {
           break
       }
 
-      if (isReject) reject(response)
+      if (isReject) { reject(response) }
     }
   })
 }
-
-export default http
