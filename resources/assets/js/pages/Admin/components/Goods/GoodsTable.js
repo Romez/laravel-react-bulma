@@ -5,11 +5,13 @@ import GoodsTableRow from './GoodsTableRow'
 class GoodsTable extends React.Component {
 
   render () {
+    const {from, goods} = this.props
+
     return (
       <table className={'table is-fullwidth'}>
         <thead>
         <tr>
-          <th>id</th>
+          <th>№</th>
           <th>Изображение</th>
           <th>Название</th>
           <th>Действия</th>
@@ -17,7 +19,7 @@ class GoodsTable extends React.Component {
         </thead>
 
         <tbody>
-          {this.props.goods.map((good) => (<GoodsTableRow key={good.id} good={good}/>))}
+          {goods.map((good, i) => (<GoodsTableRow key={good.id} good={good} number={from + i}/>))}
         </tbody>
       </table>
     )
@@ -25,7 +27,8 @@ class GoodsTable extends React.Component {
 }
 
 GoodsTable.propTypes = {
-  goods: PropTypes.array.isRequired
+  goods: PropTypes.array.isRequired,
+  from: PropTypes.number.isRequired
 }
 
 export default GoodsTable

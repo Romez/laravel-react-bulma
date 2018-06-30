@@ -8,7 +8,7 @@ class GoodsTableRow extends React.Component {
 
     return (
       <tr>
-        <td>{id}</td>
+        <td>{this.props.number}</td>
         <td>
           <figure className="image is-24x24">
             <img src="https://bulma.io/images/placeholders/128x128.png"/>
@@ -26,7 +26,8 @@ class GoodsTableRow extends React.Component {
 GoodsTableRow.propTypes = {
   good: PropTypes.shape({
     id: PropTypes.number.isRequired
-  }).isRequired
+  }).isRequired,
+  number: PropTypes.number.isRequired
 }
 
 export default GoodsTableRow

@@ -8,3 +8,7 @@
 @import "categories/main";
 
 @import "admin/categories";
+
+a[disabled] {
+  pointer-events: none;
+}
