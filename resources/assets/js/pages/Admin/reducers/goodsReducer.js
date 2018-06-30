@@ -1,7 +1,8 @@
 import GOODS_TYPES from '../actions/goodActionTypes'
 
 export const initialState = {
-  goods: []
+  goods: [],
+  currentPage: 1,
 }
 
 export default (state = initialState, action) => {
@@ -19,6 +20,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         goods
+      }
+    }
+
+    case GOODS_TYPES.UPDATE_CURRENT_PAGE: {
+      return {
+        ...state,
+        currentPage: action.currentPage
       }
     }
 

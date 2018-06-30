@@ -2,21 +2,39 @@ import GOODS_TYPES from './goodActionTypes'
 import { http } from '@utils'
 
 /**
+ * Обновить товары
+ * @param goods
+ */
+const updateGoods = (goods) => ({
+  type: GOODS_TYPES.UPDATE_GOODS,
+  goods
+})
+
+/**
+ * Удаление товара
+ * @param id
+ */
+const deleteGood = (id) => ({
+  type: GOODS_TYPES.REMOVE_GOOD,
+  id
+})
+
+/**
  * Загрузка товаров
  * @param page
  * @returns {Function}
  */
-export const uploadGoods = (page = 1) => {
+export const uploadGoodsRequest = (page = 1) => {
   return async (dispatch) => {
     try {
-      const {data} = await http('get', window.laroute.route('good.index'), {page})
+      const {data} = await http('get', window.laroute.route('good.index', {page}))
+      dispatch(updateGoods(data.goods.data))
 
-      const goods = data.goods.data
+      const {current_page} = data.goods
 
-      dispatch({
-        type: GOODS_TYPES.UPDATE_GOODS,
-        goods
-      })
+      console.log()
+
+      dispatch(updateCurrentPage(data.goods.current_page))
     } catch (e) {
       console.error(e)
     }
@@ -24,26 +42,29 @@ export const uploadGoods = (page = 1) => {
 }
 
 /**
- * Удаление товара
+ * Запрос на удаление товара
  * @param id
  * @returns {Function}
  */
-export const removeGood = (id) => {
+export const removeGoodRequest = (id) => {
   return async (dispatch) => {
-
-    console.log(id)
-
     try {
       const {data} = await http('delete', window.laroute.route('good.destroy', {good: id}))
 
       if (!data.success) { throw 'remove error'}
 
-      dispatch({
-        type: GOODS_TYPES.REMOVE_GOOD,
-        id
-      })
+      dispatch(deleteGood(id))
     } catch (e) {
       console.error(e)
     }
   }
 }
+
+/**
+ * Обновить номер текущуей страницы
+ * @param currentPage
+ */
+const updateCurrentPage = (currentPage) => ({
+  type: GOODS_TYPES.UPDATE_CURRENT_PAGE,
+  currentPage
+})

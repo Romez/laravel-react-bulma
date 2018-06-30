@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { removeGood } from '../../actions/goodActions'
+import { removeGoodRequest, uploadGoodsRequest } from '../../actions/goodActions'
 
 class GoodsActions extends React.Component {
 
-  remove = () => {
-    this.props.removeGood(this.props.id)
+  remove = async () => {
+    await this.props.removeGoodRequest(this.props.id)
+
+    this.props.uploadGoodsRequest(this.props.currentPage)
   }
 
   render () {
@@ -21,7 +23,6 @@ class GoodsActions extends React.Component {
           <i className="fa fa-pencil"/>
         </span>
 
-
         <span className="icon" onClick={this.remove}>
           <i className="fa fa-trash"/>
         </span>
@@ -32,15 +33,17 @@ class GoodsActions extends React.Component {
 
 GoodsActions.propTypes = {
   id: PropTypes.number.isRequired,
-  removeGood: PropTypes.func.isRequired
+  removeGoodRequest: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state) => ({
-
+  currentPage: state.admin.goodsReducer.currentPage
 })
 
 const mapDispatchToProps = {
-  removeGood
+  removeGoodRequest,
+  uploadGoodsRequest
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoodsActions)
