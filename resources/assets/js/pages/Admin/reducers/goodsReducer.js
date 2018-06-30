@@ -2,7 +2,7 @@ import GOODS_TYPES from '../actions/goodActionTypes'
 
 export const initialState = {
   goods: [],
-  currentPage: 1,
+  pagination: null,
 }
 
 export default (state = initialState, action) => {
@@ -23,10 +23,10 @@ export default (state = initialState, action) => {
       }
     }
 
-    case GOODS_TYPES.UPDATE_CURRENT_PAGE: {
+    case GOODS_TYPES.UPDATE_PAGINATION: {
       return {
         ...state,
-        currentPage: action.currentPage
+        pagination: action.pagination
       }
     }
 

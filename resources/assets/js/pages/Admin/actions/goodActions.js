@@ -1,5 +1,6 @@
 import GOODS_TYPES from './goodActionTypes'
 import { http } from '@utils'
+import { GoodPaginationTransformer } from '../../../transformers'
 
 /**
  * Обновить товары
@@ -8,6 +9,16 @@ import { http } from '@utils'
 const updateGoods = (goods) => ({
   type: GOODS_TYPES.UPDATE_GOODS,
   goods
+})
+
+
+/**
+ * Обновить номер текущуей страницы
+ * @param pagination
+ */
+const updatePagination = (pagination) => ({
+  type: GOODS_TYPES.UPDATE_PAGINATION,
+  pagination
 })
 
 /**
@@ -28,13 +39,11 @@ export const uploadGoodsRequest = (page = 1) => {
   return async (dispatch) => {
     try {
       const {data} = await http('get', window.laroute.route('good.index', {page}))
+
       dispatch(updateGoods(data.goods.data))
 
-      const {current_page} = data.goods
-
-      console.log()
-
-      dispatch(updateCurrentPage(data.goods.current_page))
+      const pagination = GoodPaginationTransformer.fetch(data.goods)
+      dispatch(updatePagination(pagination))
     } catch (e) {
       console.error(e)
     }
@@ -60,11 +69,3 @@ export const removeGoodRequest = (id) => {
   }
 }
 
-/**
- * Обновить номер текущуей страницы
- * @param currentPage
- */
-const updateCurrentPage = (currentPage) => ({
-  type: GOODS_TYPES.UPDATE_CURRENT_PAGE,
-  currentPage
-})

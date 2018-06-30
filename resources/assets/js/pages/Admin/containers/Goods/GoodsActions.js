@@ -8,7 +8,7 @@ class GoodsActions extends React.Component {
   remove = async () => {
     await this.props.removeGoodRequest(this.props.id)
 
-    this.props.uploadGoodsRequest(this.props.currentPage)
+    // this.props.uploadGoodsRequest(this.props.currentPage)
   }
 
   render () {
@@ -33,12 +33,12 @@ class GoodsActions extends React.Component {
 
 GoodsActions.propTypes = {
   id: PropTypes.number.isRequired,
-  removeGoodRequest: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired
+  // removeGoodRequest: PropTypes.func.isRequired,
+  // currentPage: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  currentPage: state.admin.goodsReducer.currentPage
+  // currentPage: state.admin.goodsReducer.currentPage
 })
 
 const mapDispatchToProps = {

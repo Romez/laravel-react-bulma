@@ -1,41 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { uploadGoodsRequest } from '../../actions/goodActions'
-import { GoodsTable, GoodsTablePaginator } from '../../components/Goods'
-import qs from 'query-string'
-
+import { GoodsTable } from '../../components/Goods'
+import GoodsTablePaginator from './GoodsTablePaginator'
+import { compose } from '@utils'
+import { withGoods } from '../../decorators'
 
 class GoodsPage extends React.Component {
-  componentWillMount() {
-    const params = qs.parse(this.props.location.search)
-
-    this.props.uploadGoodsRequest(params.page)
-  }
-
   render () {
     return (
       <section>
         <GoodsTable goods={this.props.goods}/>
 
-        <GoodsTablePaginator currentPage/>
+        <GoodsTablePaginator/>
       </section>
     )
   }
 }
 
 GoodsPage.propTypes = {
-  goods: PropTypes.array.isRequired,
-  currentPage: PropTypes.number.isRequired
+  goods: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({
-  goods: state.admin.goodsReducer.goods,
-  currentPage: state.admin.goodsReducer.currentPage
+  goods: state.admin.goodsReducer.goods
 })
 
 const mapDispatchToProps = {
-  uploadGoodsRequest
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GoodsPage)
+export default compose(
+  withGoods,
+  connect(mapStateToProps, mapDispatchToProps)
+)(GoodsPage)
