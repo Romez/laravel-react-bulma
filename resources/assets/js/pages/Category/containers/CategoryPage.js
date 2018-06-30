@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import { compose } from '@utils'
+import { withGoods } from '../decorators'
+import { GoodCard } from '../components'
 
 class CategoryPage extends React.Component {
   constructor (props) {
@@ -10,17 +12,30 @@ class CategoryPage extends React.Component {
 
   render () {
     return (
-      <div>
-        CategoryPage
-      </div>
+      <section>
+        <div className={'columns is-multiline'}>
+            {this.props.goods.map((good) => (
+              <div key={good.id} className="column is-one-third">
+                <GoodCard good={good}/>
+              </div>
+            ))}
+        </div>
+      </section>
     )
   }
 }
 
-CategoryPage.propTypes = {}
+CategoryPage.propTypes = {
+  goods: PropTypes.array.isRequired
+}
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  goods: state.categoryReducer.goods
+})
 
 const mapDispatchToProps = (dispatch) => ({})
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage)
+export default compose(
+  withGoods,
+  connect(mapStateToProps, mapDispatchToProps)
+)(CategoryPage)

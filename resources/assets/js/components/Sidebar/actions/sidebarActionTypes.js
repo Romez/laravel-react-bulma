@@ -1,0 +1,3 @@
+export default {
+  GET_ALL_CATEGORIES: 'SIDEBAR--CATEGORY-GET_ALL'
+}

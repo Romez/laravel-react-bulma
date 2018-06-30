@@ -1,4 +1,4 @@
-const prefix = 'GOOD--'
+const prefix = 'ADMIN-GOOD--'
 
 export default {
   UPDATE_GOODS: `${prefix}--UPDATE_GOODS`,

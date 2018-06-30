@@ -1,2 +1,4 @@
-export {default as Goods} from './Goods/GoodsPage'
+export {GoodsPage} from './Goods'
 export {default as GoodsActions} from './Goods/GoodsActions'
+
+export {CategoriesPage} from './Categories'

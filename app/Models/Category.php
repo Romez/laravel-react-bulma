@@ -18,4 +18,9 @@ class Category extends Model
     public function goods() {
         return $this->hasMany(Good::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

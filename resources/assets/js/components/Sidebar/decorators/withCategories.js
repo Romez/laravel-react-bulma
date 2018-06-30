@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Loader } from '../../'
-import { loadAll } from '../actions/categoryActions'
+import { loadAll } from '../actions/sidebarActions'
 
 export default WrappedComponent => {
   class AsyncComponent extends React.Component {

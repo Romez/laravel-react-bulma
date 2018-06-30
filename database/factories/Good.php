@@ -14,6 +14,6 @@ $factory->define(Good::class, function (Faker $faker) {
     return [
         'name' => $word,
         'description' => mb_convert_encoding( $faker->realText(mt_rand(30, 60)), 'UTF-8'),
-        'image' => $faker->imageUrl(350, 200)
+        'image' => $faker->imageUrl(330, 250)
     ];
 });

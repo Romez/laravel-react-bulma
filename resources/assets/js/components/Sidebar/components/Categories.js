@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Category from './Category'
+import Category from '../containers/Category'
 import cn from 'classnames'
 
 class Categories extends React.Component {

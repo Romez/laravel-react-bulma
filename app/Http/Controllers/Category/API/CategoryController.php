@@ -54,12 +54,18 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        $category->load([
+            'goods' => function ($goods) {
+                return $goods->paginate(3);
+            }
+        ]);
+
+        return response()->json(compact('category'));
     }
 
     /**

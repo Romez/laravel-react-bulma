@@ -1,13 +1,13 @@
 import { http } from '@utils'
 import arrToTree from 'array-to-tree'
-import CATEGORY_TYPES from './categoryActionTypes'
+import CATEGORY_TYPES from './sidebarActionTypes'
 
 /**
  * Задать категории
  * @param categories
  */
 const setCategories = (categories) => ({
-  type: CATEGORY_TYPES.GET_ALL,
+  type: CATEGORY_TYPES.GET_ALL_CATEGORIES,
   categories
 })
 
