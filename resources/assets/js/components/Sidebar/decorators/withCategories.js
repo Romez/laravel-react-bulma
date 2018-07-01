@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Loader } from '../../'
-import { loadAll } from '../actions/sidebarActions'
+import { loadCategories } from '../actions/sidebarActions'
 
 export default WrappedComponent => {
   class AsyncComponent extends React.Component {
     componentWillMount () {
-      this.props.loadAll()
+      this.props.loadCategories()
     }
 
     render () {
@@ -19,7 +19,7 @@ export default WrappedComponent => {
 
   AsyncComponent.propTypes = {
     categories: PropTypes.array,
-    loadAll: PropTypes.func.isRequired
+    loadCategories: PropTypes.func.isRequired
   }
 
   const mapStateToProps = state => ({
@@ -27,7 +27,7 @@ export default WrappedComponent => {
   })
 
   const mapDispatchToProps = {
-    loadAll
+    loadCategories
   }
 
   return connect(mapStateToProps, mapDispatchToProps)(AsyncComponent)

@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::defaultOrder()->withDepth()->get();
+        $categories = Category::defaultOrder()->withDepth()->get()->toTree();
         return response()->json(compact('categories'));
     }
 
@@ -38,11 +38,13 @@ class CategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $tree = json_decode($request->get('data'), true);
+        $tree = json_decode($request->get('categories'), true);
 
         Category::rebuildTree($tree, true);
 
-        return response()->json([]);
+
+
+        return response()->json(['success' => true]);
     }
 
     /**

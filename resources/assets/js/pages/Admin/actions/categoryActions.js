@@ -1,12 +1,12 @@
 import ADMIN_CATEGORY_TYPES from '../actions/categoryActionTypes'
-import arrToTree from 'array-to-tree'
 import { http } from '@utils'
+import { CategoriesToServerTransformer } from '../../../transformers'
 
 /**
  * Задать категории
  * @param categories
  */
-const updateCategories = (categories) => ({
+export const updateCategories = (categories) => ({
   type: ADMIN_CATEGORY_TYPES.UPDATE_CATEGORIES,
   categories
 })
@@ -15,14 +15,12 @@ const updateCategories = (categories) => ({
  * Загрузить все категории
  * @return {function(*)}
  */
-export const uploadCategories = () => {
+export const loadCategories = () => {
   return async (dispatch) => {
     const url = window.laroute.route('category.index')
     const {data} = await http('get', url)
 
-    const categories = arrToTree(data.categories)
-
-    dispatch(updateCategories(categories))
+    dispatch(updateCategories(data.categories))
   }
 }
 

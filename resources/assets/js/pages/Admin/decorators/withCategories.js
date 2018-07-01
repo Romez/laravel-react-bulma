@@ -2,12 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Loader } from '../../../components'
-import { uploadCategories, revertState } from '../actions/categoryActions'
+import { loadCategories, revertState } from '../actions/categoryActions'
 
 export default WrappedComponent => {
   class AsyncComponent extends React.Component {
     componentWillMount() {
-      this.props.uploadCategories()
+      this.props.loadCategories()
     }
 
     componentWillUnmount() {
@@ -30,7 +30,7 @@ export default WrappedComponent => {
   })
 
   const mapDispatchToProps = {
-    uploadCategories,
+    loadCategories,
     revertState
   }
 

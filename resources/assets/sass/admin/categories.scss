@@ -1,0 +1,15 @@
+#admin-categories {
+  .category-card {
+    box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+    padding: 10px;
+    &__wrap {
+      margin-bottom: 10px;
+    }
+
+  }
+
+  .admin-categories-list {
+    display: flex;
+    flex-direction: column;
+  }
+}

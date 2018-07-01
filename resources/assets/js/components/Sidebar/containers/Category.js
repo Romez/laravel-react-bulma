@@ -21,14 +21,14 @@ class Category extends React.Component {
   }
 
   render () {
-    const {name, children, id, parent_id, slug} = this.props.category
+    const {title, children, slug} = this.props.category
     return (
       <li className={'menu-list__item'}>
         <Link
           onClick={this.goToPage(slug)}
           to={window.laroute.route('category.slug', {slug})}
         >
-          {name}
+          {title}
           {children && <span className="icon"><i className={'fa fa-angle-down'}/></span>}
         </Link>
         {children && <Categories categories={children} sub={true}/>}
@@ -40,7 +40,7 @@ class Category extends React.Component {
 Category.propTypes = {
   category: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     children: PropTypes.array
   }).isRequired,
   goods: PropTypes.array,

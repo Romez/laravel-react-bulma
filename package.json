@@ -29,8 +29,8 @@
         "redux-thunk": "^2.3.0"
     },
     "dependencies": {
-        "array-to-tree": "^2.2.1",
         "font-awesome": "^4.7.0",
-        "query-string": "^6.1.0"
+        "query-string": "^6.1.0",
+        "react-sortable-tree": "^2.2.0"
     }
 }

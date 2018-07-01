@@ -8,7 +8,7 @@ $factory->define(Category::class, function (Faker $faker) {
     $word = $faker->unique()->word();
 
     return [
-        'name' => $word,
+        'title' => $word,
         'slug' => str_slug($word)
     ];
 });

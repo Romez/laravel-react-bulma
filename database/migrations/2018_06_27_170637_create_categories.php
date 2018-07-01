@@ -16,7 +16,7 @@ class CreateCategories extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name')->unique()->comment('Название категории');
+            $table->string('title')->unique()->comment('Название категории');
             $table->string('slug')->unique()->comment('Slug категории');
 
             $table->nestedSet();
