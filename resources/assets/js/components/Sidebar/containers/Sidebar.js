@@ -25,7 +25,7 @@ Sidebar.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  categories: state.categoriesReducer.categories
+  categories: state.sidebarReducer.categories
 })
 
 export default compose(

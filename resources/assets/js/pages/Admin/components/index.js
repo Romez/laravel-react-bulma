@@ -1,1 +1,2 @@
-export {default as Page} from './Page'
+export {default as AdminPage} from './AdminPage'
+export { CategoriesList} from './Categories'

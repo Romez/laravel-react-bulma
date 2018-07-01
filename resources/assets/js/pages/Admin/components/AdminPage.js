@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-class Page extends React.Component {
+class AdminPage extends React.Component {
   render () {
     return (
       <div className={'admin-category'}>
@@ -23,4 +23,4 @@ class Page extends React.Component {
   }
 }
 
-export default Page
+export default AdminPage

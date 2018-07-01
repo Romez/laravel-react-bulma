@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::defaultOrder()->get();
+        $categories = Category::defaultOrder()->withDepth()->get();
         return response()->json(compact('categories'));
     }
 
@@ -38,17 +38,11 @@ class CategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        $data = $request->getData();
-        $category = new Category($data);
+        $tree = json_decode($request->get('data'), true);
 
-        if ($request->has('parent')) {
-            $parent = Category::findOfFails($request->parent);
-            $category = $parent->appendNode(new Category($data));
-        } else {
-            $category->save();
-        }
+        Category::rebuildTree($tree, true);
 
-        return response()->json(compact($category));
+        return response()->json([]);
     }
 
     /**
@@ -75,10 +69,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return void
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
         //
     }
@@ -98,11 +92,11 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        return response()->json(['result' => $category]);
     }
 }

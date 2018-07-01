@@ -1,13 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Loader } from '../../'
-import { loadAll } from '../actions/sidebarActions'
+import { Loader } from '../../../components'
+import { uploadCategories, revertState } from '../actions/categoryActions'
 
 export default WrappedComponent => {
   class AsyncComponent extends React.Component {
-    componentWillMount () {
-      this.props.loadAll()
+    componentWillMount() {
+      this.props.uploadCategories()
+    }
+
+    componentWillUnmount() {
+      this.props.revertState()
     }
 
     render () {
@@ -18,16 +22,16 @@ export default WrappedComponent => {
   }
 
   AsyncComponent.propTypes = {
-    categories: PropTypes.array,
-    loadAll: PropTypes.func.isRequired
+    categories: PropTypes.array
   }
 
   const mapStateToProps = state => ({
-    categories: state.sidebarReducer.categories
+    categories: state.admin.categoriesReducer.categories
   })
 
   const mapDispatchToProps = {
-    loadAll
+    uploadCategories,
+    revertState
   }
 
   return connect(mapStateToProps, mapDispatchToProps)(AsyncComponent)

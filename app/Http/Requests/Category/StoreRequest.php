@@ -24,22 +24,8 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|max:255|unique:categories,name'
+            'data' => 'required|json'
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getData()
-    {
-        $name = $this->name;
-
-        $data = [
-            'name' => $name,
-            'slug' => str_slug($name)
-        ];
-
-        return $data;
-    }
 }
