@@ -22,3 +22,10 @@ mix.webpackConfig({
     }
   }
 });
+
+if (!mix.inProduction()) {
+  mix.webpackConfig({
+    devtool: 'source-map'
+  })
+    .sourceMaps()
+}

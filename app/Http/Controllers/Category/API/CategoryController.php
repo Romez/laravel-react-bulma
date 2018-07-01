@@ -59,13 +59,17 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $goodsPerPage = config('category.goods-per-page');
+
         $category->load([
-            'goods' => function ($goods) {
-                return $goods->paginate(3);
+            'goods' => function ($goods) use($goodsPerPage) {
+                return $goods->paginate($goodsPerPage);
             }
         ]);
 
-        return response()->json(compact('category'));
+        $totalGoodsCount = $category->goods()->count();
+
+        return response()->json(compact('category', 'totalGoodsCount', 'goodsPerPage'));
     }
 
     /**

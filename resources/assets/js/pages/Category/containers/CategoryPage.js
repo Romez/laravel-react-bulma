@@ -3,12 +3,21 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { compose } from '@utils'
 import { withGoods } from '../decorators'
-import { GoodCard } from '../components'
+import { GoodCard, NoGoods } from '../components'
+import MoreButton from './MoreButton'
 
 class CategoryPage extends React.Component {
-  constructor (props) {
-    super(props)
-  }
+  /**
+   * Есть ли товары в категории
+   * @returns {boolean}
+   */
+  hasGoods = () => this.props.goods.length > 0
+
+  /**
+   * Проверить что не все товары загружены
+   * @returns {boolean}
+   */
+  hasNotLoadedGoods = () => this.props.totalCategoryGoodsCount > this.props.goods.length
 
   render () {
     return (
@@ -20,6 +29,10 @@ class CategoryPage extends React.Component {
               </div>
             ))}
         </div>
+
+        {this.hasNotLoadedGoods() && <MoreButton/>}
+
+        <NoGoods isNoGoods={!this.hasGoods()}/>
       </section>
     )
   }
@@ -30,7 +43,8 @@ CategoryPage.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  goods: state.categoryReducer.goods
+  goods: state.categoryReducer.goods,
+  totalCategoryGoodsCount: state.categoryReducer.totalCategoryGoodsCount
 })
 
 const mapDispatchToProps = (dispatch) => ({})
