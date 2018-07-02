@@ -3,4 +3,6 @@ const prefix = 'ADMIN-CATEGORY--'
 export default {
   UPDATE_CATEGORIES: `${prefix}--UPDATE_CATEGORIES`,
   REVERT_STATE: `${prefix}--REVERT_STATE`,
+  UPDATE_NEW_CATEGORY_NAME: `${prefix}--UPDATE_NEW_CATEGORY_NAME`,
+  APPEND_CATEGORY: `${prefix}--APPEND_CATEGORY`,
 }

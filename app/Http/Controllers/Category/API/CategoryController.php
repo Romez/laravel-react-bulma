@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Category\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
+use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -31,20 +31,15 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  StoreRequest  $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created resource in storage.sad
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreRequest $request)
     {
-        $tree = json_decode($request->get('categories'), true);
-
-        Category::rebuildTree($tree, true);
-
-
-
-        return response()->json(['success' => true]);
+        /** @var Category $category */
+        $category = Category::create($request->getData());
+        return response()->json(compact('category'));
     }
 
     /**
@@ -80,22 +75,22 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request)
     {
-        //
+        $tree = json_decode($request->get('categories'), true);
+
+        Category::rebuildTree($tree, true);
+
+        return response()->json(['success' => true]);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
      * @param Category $category
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Category $category)
     {

@@ -1,6 +1,5 @@
 import ADMIN_CATEGORY_TYPES from '../actions/categoryActionTypes'
 import { http } from '@utils'
-import { CategoriesToServerTransformer } from '../../../transformers'
 
 /**
  * Задать категории
@@ -29,4 +28,13 @@ export const loadCategories = () => {
  */
 export const revertState = () => ({
   type: ADMIN_CATEGORY_TYPES.REVERT_STATE
+})
+
+/**
+ * Добавить категорию
+ * @param category
+ */
+export const appendCategory = (category) => ({
+  type: ADMIN_CATEGORY_TYPES.APPEND_CATEGORY,
+  category
 })

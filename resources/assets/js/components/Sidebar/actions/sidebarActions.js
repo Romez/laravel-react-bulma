@@ -5,7 +5,7 @@ import CATEGORY_TYPES from './sidebarActionTypes'
  * Задать категории
  * @param categories
  */
-const setCategories = (categories) => ({
+const updateCategories = (categories) => ({
   type: CATEGORY_TYPES.GET_ALL_CATEGORIES,
   categories
 })
@@ -19,6 +19,6 @@ export const loadCategories = () => {
     const url = window.laroute.route('category.index')
     const {data} = await http('get', url)
 
-    dispatch(setCategories(data.categories))
+    dispatch(updateCategories(data.categories))
   }
 }

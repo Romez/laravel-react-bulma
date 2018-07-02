@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import 'react-sortable-tree/style.css'
 import SortableTree, { removeNodeAtPath } from 'react-sortable-tree'
-import { updateCategories } from '../../actions/categoryActions'
+import { updateCategories, appendCategory } from '../../actions/categoryActions'
 import { loadCategories as sidebarLoadCategories } from '../../../../components/Sidebar/actions/sidebarActions'
 import { connect } from 'react-redux'
 import { withCategories } from '../../decorators'
 import { compose } from '@utils'
-import { updateRequestsCategories } from '../../helpers'
+import { updateRequestsCategories, createRequestCategory } from '../../helpers'
+import AddCategory from './AddCategory'
 
 class CategoriesList extends React.Component {
   /**
@@ -24,6 +25,18 @@ class CategoriesList extends React.Component {
    */
   update = async (data) => {
     await updateRequestsCategories(data.treeData)
+
+    this.props.sidebarLoadCategories()
+  }
+
+  /**
+   * Создать узел
+   * @param value
+   */
+  create = async (value) => {
+    const category = await createRequestCategory(value)
+
+    this.props.appendCategory(category)
 
     this.props.sidebarLoadCategories()
   }
@@ -65,6 +78,8 @@ class CategoriesList extends React.Component {
   render () {
     return (
       <div className={'admin-categories-list'}>
+        <AddCategory create={this.create}/>
+
         <div style={{height: '100vh'}}>
           <SortableTree
             treeData={this.props.categories}
@@ -90,7 +105,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   updateCategories,
-  sidebarLoadCategories
+  sidebarLoadCategories,
+  appendCategory
 }
 
 export default compose(

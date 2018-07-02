@@ -7,5 +7,8 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::group(['middleware' => ['api']], function () {
-    Route::apiResource('category', 'Category\API\CategoryController');
+    Route::put('category', 'Category\API\CategoryController@update')->name('category.update');
+    Route::apiResource('category', 'Category\API\CategoryController')->except([
+        'update'
+    ]);
 });

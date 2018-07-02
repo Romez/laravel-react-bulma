@@ -8,6 +8,5 @@ import {http} from '@utils'
  */
 export default (treeData) => {
   const categories = CategoriesToServerTransformer.fetchCollection(treeData)
-
-  return http('post', window.laroute.route('category.store'), {categories: JSON.stringify(categories)})
+  return http('put', window.laroute.route('category.update'), {categories: JSON.stringify(categories)})
 }

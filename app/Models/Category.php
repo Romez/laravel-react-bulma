@@ -9,7 +9,7 @@ class Category extends Model
 {
     use NodeTrait;
 
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['title', 'slug'];
 
     /**
      * Товары
