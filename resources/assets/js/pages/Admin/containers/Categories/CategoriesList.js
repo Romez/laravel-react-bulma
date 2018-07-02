@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import 'react-sortable-tree/style.css'
-import SortableTree from 'react-sortable-tree'
+import SortableTree, { removeNodeAtPath } from 'react-sortable-tree'
 import { updateCategories } from '../../actions/categoryActions'
 import { loadCategories as sidebarLoadCategories } from '../../../../components/Sidebar/actions/sidebarActions'
 import { connect } from 'react-redux'
@@ -23,10 +23,44 @@ class CategoriesList extends React.Component {
    * @param data
    */
   update = async (data) => {
-    await updateRequestsCategories(data)
+    await updateRequestsCategories(data.treeData)
 
     this.props.sidebarLoadCategories()
   }
+
+  /**
+   * Удаление  узла
+   * @param path
+   * @return {function()}
+   */
+  remove = (path) => {
+    return async () => {
+      const treeData = removeNodeAtPath({
+        treeData: this.props.categories,
+        path,
+        getNodeKey: ({treeIndex}) => treeIndex,
+      })
+
+      await updateRequestsCategories(treeData)
+
+      this.props.updateCategories(treeData)
+
+      this.props.sidebarLoadCategories()
+    }
+  }
+
+  /**
+   * Кнопки узла
+   * @param node
+   * @param path
+   */
+  buttons = ({node, path}) => ({
+    buttons: [
+      <span className="icon" onClick={this.remove(path)}>
+        <i className="fa fa-trash"/>
+      </span>,
+    ],
+  })
 
   render () {
     return (
@@ -36,6 +70,7 @@ class CategoriesList extends React.Component {
             treeData={this.props.categories}
             onChange={this.change}
             onMoveNode={this.update}
+            generateNodeProps={this.buttons}
           />
         </div>
       </div>

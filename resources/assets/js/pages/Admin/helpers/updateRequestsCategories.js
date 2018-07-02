@@ -3,11 +3,11 @@ import {http} from '@utils'
 
 /**
  * Сохранить категории
- * @param data
+ * @param treeData
  * @returns {Function}
  */
-export default (data) => {
-  const categories = CategoriesToServerTransformer.fetchCollection(data.treeData)
+export default (treeData) => {
+  const categories = CategoriesToServerTransformer.fetchCollection(treeData)
 
   return http('post', window.laroute.route('category.store'), {categories: JSON.stringify(categories)})
 }
