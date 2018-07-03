@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Good extends Model
 {
+    protected $fillable = [
+        'name', 'description', 'image'
+    ];
+
     /**
      * Категория
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

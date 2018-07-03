@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Good\API;
 
+use App\Http\Requests\Good\StoreRequest;
 use App\Models\Good;
 use App\Repositories\Good\IGoodRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 
 class GoodController extends Controller
 {
@@ -51,18 +54,42 @@ class GoodController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $data = $request->all();
+
+        DB::beginTransaction();
+
+        try {
+            /** @var UploadedFile $image */
+            $image = $data['image'];
+            $imageName = time() . '_' . $image->getClientOriginalName();
+
+            $good = $this->goodRepository->create([
+                'name'        => $data['name'],
+                'description' => $data['description'],
+                'image'       => $imageName
+            ]);
+
+            $image->storeAs(config('good.goods-image-path'), $imageName);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+
+        return response()->json(compact('good'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -73,7 +100,7 @@ class GoodController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -84,8 +111,8 @@ class GoodController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -95,6 +122,7 @@ class GoodController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      * @param Good $good
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception

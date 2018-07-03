@@ -13,3 +13,5 @@ php artisan laroute:generate
 php artisan migrate --seed
 
 php artisan laroute:generate
+
+php artisan storage:link

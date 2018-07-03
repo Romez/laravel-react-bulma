@@ -2,13 +2,47 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import cn from 'classnames'
-import { updateFormValue, updateFormError } from '../../actions/goodActions'
+import { updateFormValue, updateFormError, skipFormError, createGood } from '../../actions/goodActions'
 
 class CreateGoodForm extends React.Component {
+
+  /**
+   * Проверка полей формы
+   * @return {boolean}
+   */
+  validate = () => {
+    let valid = true
+    const {name, description, file} = this.props.form
+
+    if (name === '') {
+      this.props.updateFormError('name', 'Обязательное поле')
+      valid = false
+    }
+
+    if (description === '') {
+      this.props.updateFormError('description', 'Обязательное поле')
+      valid = false
+    }
+
+    if (file === null) {
+      this.props.updateFormError('file', 'Обязательное поле')
+      valid = false
+    }
+
+    // todo проверка размера файла, расширения
+
+    return valid
+  }
+
   submit = (e) => {
     e.preventDefault()
 
+    if (this.validate()) {
+
+      this.props.createGood({...this.props.form})
+
     // todo submit
+    }
   }
 
   /**
@@ -16,7 +50,8 @@ class CreateGoodForm extends React.Component {
    * @param e
    */
   fileChange = (e) => {
-    this.props.updateFormValue('file', e.target.files[0])
+    this.props.updateFormValue('image', e.target.files[0])
+    this.props.skipFormError('image')
   }
 
   /**
@@ -27,6 +62,7 @@ class CreateGoodForm extends React.Component {
     const {name, value} = e.target
 
     this.props.updateFormValue(name, value)
+    this.props.skipFormError(name)
   }
 
   render () {
@@ -37,11 +73,11 @@ class CreateGoodForm extends React.Component {
 
         <form onSubmit={this.submit}>
           <div className="field">
-            <div className="file has-name">
+            <div className={cn('file', 'has-name', {'is-danger': errors.image})}>
               <label className="file-label">
                 <input
                   onChange={this.fileChange}
-                  className={cn('file-input', {'is-danger': errors.description})}
+                  className={'file-input'}
                   type="file"
                   name="resume"
                 />
@@ -98,14 +134,19 @@ CreateGoodForm.propTypes = {
   form: PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    file: PropTypes.object
+    image: PropTypes.object
   }).isRequired,
 
   errors: PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    file: PropTypes.string.isRequired,
-  }).isRequired
+    image: PropTypes.string.isRequired,
+  }).isRequired,
+
+  updateFormValue: PropTypes.func.isRequired,
+  updateFormError: PropTypes.func.isRequired,
+  skipFormError: PropTypes.func.isRequired,
+  createGood: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
@@ -115,7 +156,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   updateFormValue,
-  updateFormError
+  updateFormError,
+  skipFormError,
+  createGood
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateGoodForm)

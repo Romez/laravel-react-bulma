@@ -118,3 +118,27 @@ export const updateFormError = (name, value) => ({
   name,
   value
 })
+
+/**
+ * Сброс ошибки поля формы
+ * @param name
+ * @return {function(*)}
+ */
+export const skipFormError = (name) => {
+  return (dispatch) => {
+    dispatch(updateFormError(name, ''))
+  }
+}
+
+/**
+ *
+ * @param good
+ * @return {function(*)}
+ */
+export const createGood = (good) => {
+  return async (dispatch) => {
+    const {data} = await http('post', window.laroute.route('good.store', good))
+
+    console.log(data)
+  }
+}

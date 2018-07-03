@@ -8,12 +8,12 @@ export const initialState = {
   form: {
     name: '',
     description: '',
-    file: null
+    image: null
   },
   errors: {
     name: '',
     description: '',
-    file: ''
+    image: ''
   }
 }
 
