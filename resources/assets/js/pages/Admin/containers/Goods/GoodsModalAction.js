@@ -4,17 +4,22 @@ import { connect } from 'react-redux'
 import cn from 'classnames'
 import { MODAL_CREATE_TYPE, MODAL_UPDATE_TYPE, MODAL_VIEW_TYPE } from '../../constants/goods/index'
 import { closeModalAction } from '../../actions/goodActions'
-import { ViewGood } from './'
+import { ViewGood, CreateGoodForm } from './'
 
 class GoodsModalAction extends React.Component {
   close = () => {
     this.props.closeModalAction()
   }
 
+  /**
+   * Выбор контента модального окна
+   * @param type
+   * @return {XML}
+   */
   getContent = (type) => {
     switch (type) {
       case MODAL_CREATE_TYPE: {
-
+        return <CreateGoodForm/>
       }
 
       case MODAL_UPDATE_TYPE: {

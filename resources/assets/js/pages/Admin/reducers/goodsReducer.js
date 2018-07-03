@@ -4,7 +4,17 @@ export const initialState = {
   goods: [],
   pagination: null,
   modalActionType: null,
-  modalActionId: null
+  modalActionId: null,
+  form: {
+    name: '',
+    description: '',
+    file: null
+  },
+  errors: {
+    name: '',
+    description: '',
+    file: ''
+  }
 }
 
 export default (state = initialState, action) => {
@@ -41,6 +51,22 @@ export default (state = initialState, action) => {
         ...state,
         modalActionType: action.modalActionType,
         modalActionId: action.modalActionId
+      }
+    }
+
+    case GOODS_TYPES.UPDATE_FORM_VALUE: {
+      const form = {...state.form, [action.name]: action.value}
+      return {
+        ...state,
+        form
+      }
+    }
+
+    case GOODS_TYPES.UPDATE_FORM_ERROR: {
+      const errors = {...state.errors, [action.name]: action.value}
+      return {
+        ...state,
+        errors
       }
     }
 

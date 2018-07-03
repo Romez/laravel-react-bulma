@@ -11,7 +11,6 @@ const updateGoods = (goods) => ({
   goods
 })
 
-
 /**
  * Обновить номер текущуей страницы
  * @param pagination
@@ -97,3 +96,25 @@ export const closeModalAction = () => {
     dispatch(updateModalAction(null, null))
   }
 }
+
+/**
+ * Изменить значение поля формы
+ * @param name
+ * @param value
+ */
+export const updateFormValue = (name, value) => ({
+  type: GOODS_TYPES.UPDATE_FORM_VALUE,
+  name,
+  value
+})
+
+/**
+ * Задать ошибку для поля
+ * @param name
+ * @param value
+ */
+export const updateFormError = (name, value) => ({
+  type: GOODS_TYPES.UPDATE_FORM_ERROR,
+  name,
+  value
+})
