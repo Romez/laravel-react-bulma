@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { GoodsTable } from '../../components/Goods'
-import GoodsTablePaginator from './GoodsTablePaginator'
+import { GoodsTable } from '../../components'
+import {GoodsTablePaginator, CreateButton, GoodsModalAction} from './'
 import { compose } from '@utils'
 import { withGoods } from '../../decorators'
+import { MODAL_CREATE_TYPE, MODAL_UPDATE_TYPE, MODAL_VIEW_TYPE } from '../../constants/goods'
 
 class GoodsPage extends React.Component {
   /**
@@ -17,9 +18,13 @@ class GoodsPage extends React.Component {
 
     return (
       <section>
+        <CreateButton/>
+
         <GoodsTable goods={goods} from={pagination.from}/>
 
         {this.isPagesMoreThanOne() && <GoodsTablePaginator/>}
+
+        <GoodsModalAction/>
       </section>
     )
   }
@@ -32,10 +37,13 @@ GoodsPage.propTypes = {
   }).isRequired
 }
 
-const mapStateToProps = (state) => ({
-  goods: state.admin.goodsReducer.goods,
-  pagination: state.admin.goodsReducer.pagination
-})
+const mapStateToProps = (state) => {
+  const {goods, pagination} = state.admin.goodsReducer
+  return {
+    goods,
+    pagination
+  }
+}
 
 const mapDispatchToProps = {
 }

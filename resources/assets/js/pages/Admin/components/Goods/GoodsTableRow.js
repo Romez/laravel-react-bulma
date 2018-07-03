@@ -4,14 +4,14 @@ import { GoodsActions } from '../../containers'
 
 class GoodsTableRow extends React.Component {
   render () {
-    const {id, name} = this.props.good
+    const {id, name, image} = this.props.good
 
     return (
       <tr>
         <td>{this.props.number}</td>
         <td>
           <figure className="image is-24x24">
-            <img src="https://bulma.io/images/placeholders/128x128.png"/>
+            <img src={image}/>
           </figure>
         </td>
         <td className={'good__name'}>{name}</td>
@@ -25,7 +25,9 @@ class GoodsTableRow extends React.Component {
 
 GoodsTableRow.propTypes = {
   good: PropTypes.shape({
-    id: PropTypes.number.isRequired
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
   }).isRequired,
   number: PropTypes.number.isRequired
 }

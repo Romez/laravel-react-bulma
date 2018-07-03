@@ -76,3 +76,22 @@ export const revertState = () => ({
   type: GOODS_TYPES.REVERT_STATE
 })
 
+/**
+ * Установить тип содержимого открываемого модального окна
+ * @param modalActionType
+ * @returns {{type: string, modalActionType: *}}
+ */
+export const updateModalAction = (modalActionType) => ({
+  type: GOODS_TYPES.UPDATE_MODAL_ACTION_TYPE,
+  modalActionType
+})
+
+/**
+ * Закрыть модальное окно
+ * @returns {Function}
+ */
+export const closeModalAction = () => {
+  return (dispatch) => {
+    dispatch(updateModalAction(null))
+  }
+}

@@ -21,7 +21,7 @@ class Category extends React.Component {
   }
 
   render () {
-    const {title, children, slug} = this.props.category
+    const {title, children = [], slug} = this.props.category
     return (
       <li className={'menu-list__item'}>
         <Link
@@ -29,9 +29,9 @@ class Category extends React.Component {
           to={window.laroute.route('category.slug', {slug})}
         >
           {title}
-          {children && <span className="icon"><i className={'fa fa-angle-down'}/></span>}
+          {children.length > 0 && <span className="icon"><i className={'fa fa-angle-down'}/></span>}
         </Link>
-        {children && <Categories categories={children} sub={true}/>}
+        {children.length > 0 && <Categories categories={children} sub={true}/>}
       </li>
     )
   }
