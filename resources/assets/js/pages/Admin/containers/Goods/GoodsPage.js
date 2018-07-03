@@ -5,7 +5,6 @@ import { GoodsTable } from '../../components'
 import {GoodsTablePaginator, CreateButton, GoodsModalAction} from './'
 import { compose } from '@utils'
 import { withGoods } from '../../decorators'
-import { MODAL_CREATE_TYPE, MODAL_UPDATE_TYPE, MODAL_VIEW_TYPE } from '../../constants/goods'
 
 class GoodsPage extends React.Component {
   /**
@@ -17,7 +16,7 @@ class GoodsPage extends React.Component {
     const {goods, pagination} = this.props
 
     return (
-      <section>
+      <section id={'admin-goods'}>
         <CreateButton/>
 
         <GoodsTable goods={goods} from={pagination.from}/>

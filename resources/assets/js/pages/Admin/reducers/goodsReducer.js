@@ -3,7 +3,8 @@ import GOODS_TYPES from '../actions/goodActionTypes'
 export const initialState = {
   goods: [],
   pagination: null,
-  modalActionType: null
+  modalActionType: null,
+  modalActionId: null
 }
 
 export default (state = initialState, action) => {
@@ -38,7 +39,8 @@ export default (state = initialState, action) => {
     case GOODS_TYPES.UPDATE_MODAL_ACTION_TYPE: {
       return {
         ...state,
-        modalActionType: action.modalActionType
+        modalActionType: action.modalActionType,
+        modalActionId: action.modalActionId
       }
     }
 

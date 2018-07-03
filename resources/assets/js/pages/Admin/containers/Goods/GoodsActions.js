@@ -7,11 +7,11 @@ import { MODAL_VIEW_TYPE, MODAL_UPDATE_TYPE } from '../../constants/goods'
 class GoodsActions extends React.Component {
 
   view = () => {
-    this.props.updateModalAction(MODAL_VIEW_TYPE)
+    this.props.updateModalAction(MODAL_VIEW_TYPE, this.props.id)
   }
 
   update = () => {
-    this.props.updateModalAction(MODAL_UPDATE_TYPE)
+    this.props.updateModalAction(MODAL_UPDATE_TYPE, this.props.id)
   }
 
   remove = async () => {
