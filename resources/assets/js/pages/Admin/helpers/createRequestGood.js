@@ -6,5 +6,5 @@ import {http} from '@utils'
  * @return {function(*)}
  */
 export default async (good) => {
-  return await http('post', window.laroute.route('good.store'), good)
+  return await http('post', window.laroute.route('good.store'), good, true)
 }

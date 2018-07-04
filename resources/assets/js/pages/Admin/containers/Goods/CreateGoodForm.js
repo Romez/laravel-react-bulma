@@ -35,8 +35,6 @@ class CreateGoodForm extends React.Component {
       valid = false
     }
 
-    // todo проверка размера файла, расширения
-
     return valid
   }
 
@@ -49,17 +47,28 @@ class CreateGoodForm extends React.Component {
     e.preventDefault()
 
     if (this.validate()) {
-      const data = new FormData()
+      try {
+        const formData = new FormData()
 
-      Object.keys(this.props.form).forEach((key) => {
-        data.append(key, this.props.form[key])
-      })
+        Object.keys(this.props.form).forEach((key) => {
+          formData.append(key, this.props.form[key])
+        })
 
-      await createRequestGood(data)
+        await createRequestGood(formData)
 
-      this.props.closeModalAction()
+        this.props.closeModalAction()
 
-      this.props.uploadGoodsRequest(this.props.currentPage)
+        this.props.uploadGoodsRequest(this.props.currentPage)
+      } catch (e) {
+        const validateErrorStatus = 422
+        if (e.status === validateErrorStatus) {
+          Object.keys(e.data.errors).forEach((key) => {
+            e.data.errors[key].forEach(err => {
+              this.props.updateFormError(key, err)
+            })
+          })
+        }
+      }
     }
   }
 
