@@ -1,19 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { removeGoodRequest, uploadGoodsRequest, updateModalAction } from '../../actions/goodActions'
+import { removeGoodRequest, uploadGoodsRequest, openForm } from '../../actions/goodActions'
 import { MODAL_VIEW_TYPE, MODAL_UPDATE_TYPE } from '../../constants/goods'
 
 class GoodsActions extends React.Component {
 
-  view = () => {
-    this.props.updateModalAction(MODAL_VIEW_TYPE, this.props.id)
-  }
+  /**
+   * Просмотреть товар
+   */
+  view = () => this.props.openForm(MODAL_VIEW_TYPE, this.props.id)
 
+  /**
+   * Изменить товар
+   */
   update = () => {
-    this.props.updateModalAction(MODAL_UPDATE_TYPE, this.props.id)
+    this.props.openForm(MODAL_UPDATE_TYPE, this.props.id)
   }
 
+  /**
+   * Удаление товара
+   * @returns {Promise<void>}
+   */
   remove = async () => {
     await this.props.removeGoodRequest(this.props.id)
 
@@ -42,7 +50,7 @@ class GoodsActions extends React.Component {
 GoodsActions.propTypes = {
   id: PropTypes.number.isRequired,
   uploadGoodsRequest: PropTypes.func.isRequired,
-  updateModalAction: PropTypes.func.isRequired
+  openForm: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({
@@ -52,7 +60,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   removeGoodRequest,
   uploadGoodsRequest,
-  updateModalAction
+  openForm
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoodsActions)

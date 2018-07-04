@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Good\API;
 
 use App\Http\Requests\Good\StoreRequest;
+use App\Models\Category;
 use App\Models\Good;
+use App\Repositories\Category\ICategoryRepository;
 use App\Repositories\Good\IGoodRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,16 +18,22 @@ class GoodController extends Controller
      * @var IGoodRepository
      */
     private $goodRepository;
+    /**
+     * @var ICategoryRepository
+     */
+    private $categoryRepository;
 
 
     /**
      * GoodController constructor.
      *
      * @param IGoodRepository $goodRepository
+     * @param ICategoryRepository $categoryRepository
      */
-    public function __construct(IGoodRepository $goodRepository)
+    public function __construct(IGoodRepository $goodRepository, ICategoryRepository $categoryRepository)
     {
         $this->goodRepository = $goodRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
 
@@ -69,13 +77,15 @@ class GoodController extends Controller
             $image = $data['image'];
             $imageName = time() . '_' . $image->getClientOriginalName();
 
-            $good = $this->goodRepository->create([
+            /** @var Category $category */
+            $category = $this->categoryRepository->getById($data['category']);
+            $category->goods()->create([
                 'name'        => $data['name'],
                 'description' => $data['description'],
                 'image'       => $imageName
             ]);
 
-            $image->storeAs(config('good.goods-image-path'), $imageName);
+            $image->storePubliclyAs(config('good.goods-image-path'), $imageName);
 
             DB::commit();
         } catch (\Exception $e) {
@@ -83,7 +93,7 @@ class GoodController extends Controller
             throw $e;
         }
 
-        return response()->json(compact('good'));
+        return response()->json(['success' => true]);
     }
 
     /**

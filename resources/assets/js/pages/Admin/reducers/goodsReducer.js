@@ -8,13 +8,16 @@ export const initialState = {
   form: {
     name: '',
     description: '',
-    image: null
+    image: null,
+    category: ''
   },
   errors: {
     name: '',
     description: '',
-    image: ''
-  }
+    image: '',
+    category: ''
+  },
+  categories: null
 }
 
 export default (state = initialState, action) => {
@@ -67,6 +70,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         errors
+      }
+    }
+
+    case GOODS_TYPES.RESET_FORM: {
+      return {
+        ...state,
+        form: initialState.form,
+        errors: initialState.errors
+      }
+    }
+
+    case GOODS_TYPES.UPDATE_CATEGORIES: {
+      return {
+        ...state,
+        categories: action.categories
       }
     }
 

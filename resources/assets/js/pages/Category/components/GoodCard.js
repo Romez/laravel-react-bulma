@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 class GoodCard extends React.Component {
   render () {
-    const {name, description, image} = this.props.good
+    const {name, description, imageUrl} = this.props.good
 
     return (
       <div className="card">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src={image} alt={name}/>
+            <img src={imageUrl} alt={name}/>
           </figure>
         </div>
         <div className="card-content">

@@ -22,13 +22,12 @@ class CreateGoods extends Migration
 
             $table->string('image')->comment('Изображение товара');
 
-            $table->integer('category_id', false, true)->nullable(true)
-                ->comment('Категория товара');
+            $table->integer('category_id', false, true)->comment('Категория товара');
 
             $table->foreign('category_id', 'fk_category')
                 ->references('id')->on('categories')
                 ->onUpdate('cascade')
-                ->onDelete('set null');
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

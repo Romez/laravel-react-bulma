@@ -30,6 +30,33 @@ const deleteGood = (id) => ({
 })
 
 /**
+ * Сброс всей формы
+ * @returns {{type: string}}
+ */
+const resetForm = () => ({
+  type: GOODS_TYPES.RESET_FORM
+})
+
+/**
+ * Задать категории
+ * @param categories
+ * @returns {{type: string, categories: *}}
+ */
+const updateCategories = (categories) => ({
+  type: GOODS_TYPES.UPDATE_CATEGORIES,
+  categories
+})
+
+/**
+ * Удалить категории
+ * @returns {{type: string, categories: Array}}
+ */
+const removeCategories = () => ({
+  type: GOODS_TYPES.UPDATE_CATEGORIES,
+  categories: []
+})
+
+/**
  * Загрузка товаров
  * @param page
  * @returns {Function}
@@ -81,11 +108,26 @@ export const revertState = () => ({
  * @param modalActionId
  * @returns {{type: string, modalActionType: *}}
  */
-export const updateModalAction = (modalActionType, modalActionId = null) => ({
+const updateModalAction = (modalActionType, modalActionId = null) => ({
   type: GOODS_TYPES.UPDATE_MODAL_ACTION_TYPE,
   modalActionType,
   modalActionId
 })
+
+/**
+ * Открыть форму
+ * @param modalActionType
+ * @param modalActionId
+ * @returns {Function}
+ */
+export const openForm = (modalActionType, modalActionId = null) => {
+  return async (dispatch) => {
+    const {data} = await http('get', window.laroute.route('category.index', {'plain': true}))
+
+    dispatch(updateCategories(data.categories))
+    dispatch(updateModalAction(modalActionType, modalActionId))
+  }
+}
 
 /**
  * Закрыть модальное окно
@@ -94,6 +136,8 @@ export const updateModalAction = (modalActionType, modalActionId = null) => ({
 export const closeModalAction = () => {
   return (dispatch) => {
     dispatch(updateModalAction(null, null))
+    dispatch(resetForm())
+    dispatch(removeCategories())
   }
 }
 
@@ -127,18 +171,5 @@ export const updateFormError = (name, value) => ({
 export const skipFormError = (name) => {
   return (dispatch) => {
     dispatch(updateFormError(name, ''))
-  }
-}
-
-/**
- *
- * @param good
- * @return {function(*)}
- */
-export const createGood = (good) => {
-  return async (dispatch) => {
-    const {data} = await http('post', window.laroute.route('good.store', good))
-
-    console.log(data)
   }
 }

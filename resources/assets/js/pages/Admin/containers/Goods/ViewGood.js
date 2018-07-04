@@ -4,13 +4,13 @@ import { connect } from 'react-redux'
 
 class ViewGood extends React.Component {
   render () {
-    const {image, name, description} = this.props.good
+    const {imageUrl, name, description} = this.props.good
 
     return (
       <div className="card card-view">
         <div className="card-image">
           <figure className="image is-4by3">
-            <img src={image} alt={name}/>
+            <img src={imageUrl} alt={name}/>
           </figure>
         </div>
         <div className="card-content">

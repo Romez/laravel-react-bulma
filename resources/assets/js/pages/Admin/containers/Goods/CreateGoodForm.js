@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import cn from 'classnames'
-import { updateFormValue, updateFormError, skipFormError, createGood } from '../../actions/goodActions'
+import { updateFormValue, updateFormError, skipFormError, uploadGoodsRequest, closeModalAction } from '../../actions/goodActions'
+import { createRequestGood} from '../../helpers'
 
 class CreateGoodForm extends React.Component {
 
@@ -12,7 +13,7 @@ class CreateGoodForm extends React.Component {
    */
   validate = () => {
     let valid = true
-    const {name, description, file} = this.props.form
+    const {name, description, image, category} = this.props.form
 
     if (name === '') {
       this.props.updateFormError('name', 'Обязательное поле')
@@ -24,8 +25,13 @@ class CreateGoodForm extends React.Component {
       valid = false
     }
 
-    if (file === null) {
-      this.props.updateFormError('file', 'Обязательное поле')
+    if (image === null) {
+      this.props.updateFormError('image', 'Обязательное поле')
+      valid = false
+    }
+
+    if (category === '') {
+      this.props.updateFormError('category', 'Обязательное поле')
       valid = false
     }
 
@@ -34,14 +40,26 @@ class CreateGoodForm extends React.Component {
     return valid
   }
 
-  submit = (e) => {
+  /**
+   * Оправка формы
+   * @param e
+   * @returns {Promise<void>}
+   */
+  submit = async (e) => {
     e.preventDefault()
 
     if (this.validate()) {
+      const data = new FormData()
 
-      this.props.createGood({...this.props.form})
+      Object.keys(this.props.form).forEach((key) => {
+        data.append(key, this.props.form[key])
+      })
 
-    // todo submit
+      await createRequestGood(data)
+
+      this.props.closeModalAction()
+
+      this.props.uploadGoodsRequest(this.props.currentPage)
     }
   }
 
@@ -66,7 +84,7 @@ class CreateGoodForm extends React.Component {
   }
 
   render () {
-    const {form, errors} = this.props
+    const {form, errors, categories} = this.props
 
     return (
       <div className={'card section'}>
@@ -89,11 +107,26 @@ class CreateGoodForm extends React.Component {
                       Выберете изображение…
                   </span>
                 </span>
-                {form.file && <span className="file-name">
-                  {form.file.name}
+                {form.image && <span className="file-name">
+                  {form.image.name}
                 </span>}
               </label>
             </div>
+            <p className="help is-danger">{errors.image}</p>
+          </div>
+
+          <div className="field">
+            <div className="control">
+              <div className={cn('select', {'is-danger': errors.category})}>
+                <select name={'category'} onChange={this.inputChange}>
+                  <option value={''}>Выберите категорию...</option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>{category.title}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <p className="help is-danger">{errors.category}</p>
           </div>
 
           <div className="field">
@@ -107,6 +140,7 @@ class CreateGoodForm extends React.Component {
                 value={form.name}
               />
             </div>
+            <p className="help is-danger">{errors.name}</p>
           </div>
 
           <div className="field">
@@ -120,9 +154,10 @@ class CreateGoodForm extends React.Component {
                 value={form.description}
               />
             </div>
+            <p className="help is-danger">{errors.description}</p>
           </div>
 
-          <input className="button" type="submit" value="Создать"/>
+          <input className="button is-success" type="submit" value="Создать"/>
         </form>
 
       </div>
@@ -146,19 +181,28 @@ CreateGoodForm.propTypes = {
   updateFormValue: PropTypes.func.isRequired,
   updateFormError: PropTypes.func.isRequired,
   skipFormError: PropTypes.func.isRequired,
-  createGood: PropTypes.func.isRequired
+  uploadGoodsRequest: PropTypes.func.isRequired,
+  closeModalAction: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  categories: PropTypes.array.isRequired
 }
 
-const mapStateToProps = (state) => ({
-  form: state.admin.goodsReducer.form,
-  errors: state.admin.goodsReducer.errors
-})
+const mapStateToProps = (state) => {
+  const {form, errors, pagination, categories} = state.admin.goodsReducer
+  return {
+    form,
+    errors,
+    currentPage: pagination.currentPage,
+    categories
+  }
+}
 
 const mapDispatchToProps = {
+  uploadGoodsRequest,
+  closeModalAction,
   updateFormValue,
   updateFormError,
-  skipFormError,
-  createGood
+  skipFormError
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateGoodForm)

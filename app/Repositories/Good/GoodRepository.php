@@ -21,7 +21,7 @@ class GoodRepository extends Repository implements IGoodRepository
      */
     public function getPaginated($perPage = 10): LengthAwarePaginator
     {
-        return $this->model->paginate($perPage);
+        return $this->model->orderBy('created_at', 'desc')->paginate($perPage);
     }
 }
 

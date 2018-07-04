@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
 use App\Models\Category;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -14,9 +15,14 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::defaultOrder()->withDepth()->get()->toTree();
+        $categories = Category::defaultOrder()->withDepth()->get();
+
+        if (!$request->query('plain', false)) {
+            $categories = $categories->toTree();
+        }
+
         return response()->json(compact('categories'));
     }
 
@@ -54,7 +60,7 @@ class CategoryController extends Controller
 
         $category->load([
             'goods' => function ($goods) use($goodsPerPage) {
-                return $goods->paginate($goodsPerPage);
+                return $goods->orderBy('created_at', 'desc')->paginate($goodsPerPage);
             }
         ]);
 
