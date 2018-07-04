@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { removeGoodRequest, uploadGoodsRequest, openForm } from '../../actions/goodActions'
-import { MODAL_VIEW_TYPE, MODAL_UPDATE_TYPE } from '../../constants/goods'
+import { MODAL_VIEW_TYPE } from '../../constants/goods'
 
 class GoodsActions extends React.Component {
 
@@ -10,13 +10,6 @@ class GoodsActions extends React.Component {
    * Просмотреть товар
    */
   view = () => this.props.openForm(MODAL_VIEW_TYPE, this.props.id)
-
-  /**
-   * Изменить товар
-   */
-  update = () => {
-    this.props.openForm(MODAL_UPDATE_TYPE, this.props.id)
-  }
 
   /**
    * Удаление товара
@@ -33,10 +26,6 @@ class GoodsActions extends React.Component {
       <div className={'goods-actions'}>
         <span className="icon" onClick={this.view}>
           <i className="fa fa-eye"/>
-        </span>
-
-        <span className="icon" onClick={this.update}>
-          <i className="fa fa-pencil"/>
         </span>
 
         <span className="icon" onClick={this.remove}>
